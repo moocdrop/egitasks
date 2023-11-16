@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eye Gaze Interpretation Tasks</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Lexend', Arial, sans-serif;
+            text-align: center;
+            background-color: white;
+            color: #333;
+            display: flex; /* Add this line */
+            flex-direction: column; /* Add this line */
+            align-items: left; /* Add this line */
+
+        }
+
+        ol{
+            padding-left: 100px ;
+            text-align:left
+        }
+        
+        ol{
+            padding-left: 100px ;
+            text-align:left
+        }
+        h1 {
+            margin-top: 0;
+        }
+        h2 {
+            margin-top: 10;
+            padding-left: 100px ;
+            text-align: left;
+        }
+        h3 {
+            margin-top: 50;
+            margin-bottom: 100;
+            padding-left: 100px ;
+            text-align: left;
+            color: blue;
+        }
+        .question {
+            margin-bottom: 50px;
+
+        }
+
+        .image {
+            margin-bottom: 20px;
+        }
+
+        .videos {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 50px;
+            margin-top: 50px;
+        }
+
+        .video {
+            margin-bottom: 10px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .video-wrapper {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .video-wrapper h3 {
+            margin: 0;
+        }
+
+        .video-wrapper video {
+            max-width: 100%;
+        }
+        
+        textarea {
+        width: 50%;
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend&display=swap">
+</head>
+<body>
+    <h1></h1>
+    <div id="user-details">
+        <div class="question">
+            <h1>Priming task</h1>
+            <h2>Watch the following video that shows the gaze pattern of a student solving a graph problem</h2>
+            <div class="videos">
+                <div class="video-wrapper">
+                    <video id="videop" controls onplay="logInteraction('Video Priming')" onpause="logInteraction('Video Pause - Video Priming')" onended="logInteraction('Video Ended - Video Priming')" ontimeupdate="logVideoTime('Video Priming', this.currentTime)">
+                        <source src="primingvideo.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+            <h2>Answer the following questions:</h2>
+            <ol>
+                <li>What do the bubbles in the video represent or allow you to interpret?</li>
+                <li>What is represented by the trailing path between different bubbles?</li>
+                <li>What does the variation in size of the bubbles indicate?</li>
+                <li>What can you infer about the students's problem solving from observing and interpreting their eye gaze video?</li>
+            </ol><br>
+            <textarea id="answer-input-0" placeholder="Answer each of the above three questions" rows="10"></textarea>
+        </div>
+        <hr>
+        <div>
+            <h2>General Instructions</h2>
+            <ol>
+            <li>You and your assigned partner are required to discuss and solve two EGI tasks.</li>
+            <li>In each EGI task you will have the gaze of one student who solved the problem correctly and one who didn't. You will have interpret how their problem solving lead to both incorrect and correct answers.</li>
+            <li>There is no time limit for this activity.</li>
+            <li>After reaching a solution for each problem, please record your key findings in the designated text-box at the end of the page.</li>
+            <li>If you have any doubts or encounter any difficulties, please notify the teaching assistant present in the room.</li>
+
+            </ol>
+            
+        </div>
+        <h2>Enter Your Details:</h2>
+        <input type="text" id="name-input" placeholder="Student 1">
+        <input type="text" id="department-input" placeholder="Student 2">
+        <button class="button" onclick="startSession()">Start</button>
+    </div>
+    
+    <div id="questions" style="display: none;">
+        <div class="question">
+            <h1>Problem 1:</h1>
+            <div class="image">
+                <img src="q1stem.png" alt="Question 1 Image" width="800">
+            </div>
+            <h3>Discuss with your partner, then enter your answer and briefly explain your reasoning</h3>
+            <textarea id="answer-input-1" placeholder="Type your answer (500-word limit)" rows="20"></textarea>
+            <button class="button" onclick="submitAnswer(1)">Submit</button>
+        </div>
+
+        <div class="question" style="display: none;">
+            <h1>Problem 1 EGI task:</h1>
+            <p><h2>
+                <p>Two students solved a descriptive statistics problem. Student A got the incorrect answer, while Student B got the correct answer. Can you explain why by looking at their gaze videos?</p>
+                <br>
+                <p>Use the table to note down observations about the students' problem solving process/steps. Then use those observations to answer the question in the box below. </p>
+                </h2> 
+            </p>
+            
+            <div class="videos">
+                <div class="video-wrapper">
+                    <h3>Eye gaze video of Student A (INCORRECT answer)</h3>
+                    <video id="video1" controls width="100%" onplay="logInteraction('Video Play - Question 1 Video A')" onpause="logInteraction('Video Pause - Question 1 Video A')" onended="logInteraction('Video Ended - Question 1 Video A')" ontimeupdate="logVideoTime('Question 1 Video A', this.currentTime)">
+                        <source src="question1_video1.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <p><br><p></p>
+                <div class="video-wrapper">
+                    <h3>Eye gaze video of Student B (CORRECT answer)</h3>
+                    <video id="video1" controls width="100%" onplay="logInteraction('Video Play - Question 1 Video B')" onpause="logInteraction('Video Pause - Question 1 Video B')" onended="logInteraction('Video Ended - Question 1 Video B')" ontimeupdate="logVideoTime('Question 1 Video B', this.currentTime)">
+                        <source src="question1_video2.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+            <p><br><p></p>
+            <textarea id="answer-input-2" placeholder="Type your answer (500-word limit)" rows="20"></textarea>
+            <button class="button" onclick="submitAnswer(2)">Submit</button>
+        </div>
+        
+        <div class="question" style="display: none;">
+            <h1>Problem 2:</h1>
+            <div class="image">
+                <img src="q2stem.png" alt="Question 1 Image" width="800">
+            </div>
+            <div class="image">
+                <img src="q2plots.png" alt="Question 1 Image" width="800">
+            </div>
+            <h3>After discussing with your partner, list down your answers </h3>
+            <textarea id="answer-input-3" placeholder="Type your answer (500-word limit)" rows="20"></textarea>
+            <button class="button" onclick="submitAnswer(3)">Submit</button>
+        </div>
+
+        <div class="question" style="display: none;">
+            <h1>Problem 2 EGI task:</h1>
+            <h2>
+                <p>The following statistical reasoning problem was attempted by Student A and Student B (the very same problem that you attempted)</p>
+                <div class="image">
+                    <img src="q2stem.png" alt="Question 1 Image" width="800">
+                </div>
+                  
+                <p>Student A and Student B identified two inferences about the variation in the tip amount apart from the overall correlation observed with the total Bill amount.</p>
+                <p>Both the inferences made by Student A were incorrect, while that of Student B were correct. Can you explain why by looking at their gaze videos?</p>
+                <br>
+                <p>Use the table to note down observations about the students' problem solving process/steps. Then use those observations to answer the question in the box below.</p>
+                </h2>
+
+            <div class="videos">
+                <div class="video-wrapper">
+                    <h3>Inference 1</h3>
+                    <h3>Eye gaze video of Student A (INCORRECT answer)</h3>
+                    <video id="video2" controls onplay="logInteraction('Video Play - Question 2a Video A')" onpause="logInteraction('Video Pause - Question 2a Video A')" onended="logInteraction('Video Ended - Question 2a Video A')" ontimeupdate="logVideoTime('Question 2a Video A', this.currentTime)">
+                        <source src="Person_A_EGI2a.mp4" type="video/mp4">
+                    </video>
+                    <br>
+                    <h3>Inference 1</h3>
+                    <h3>Eye gaze video of Student B (CORRECT answer)</h3>
+                    <video id="video2" controls onplay="logInteraction('Video Play - Question 2a Video B')" onpause="logInteraction('Video Pause - Question 2a Video B')" onended="logInteraction('Video Ended - Question 2a Video B')" ontimeupdate="logVideoTime('Question 2a Video B', this.currentTime)">
+                        <source src="Person_B_EGI2a.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="video-wrapper">
+                    <h3>Inference 2</h3>
+                    <h3>Eye gaze video of Person A (INCORRECT answer)</h3>
+                    <video id="video2" controls onplay="logInteraction('Video Play - Question 2b Video A')" onpause="logInteraction('Video Pause - Question 2b Video A')" onended="logInteraction('Video Ended - Question 2b Video A')" ontimeupdate="logVideoTime('Question 2 Video 1', this.currentTime)">
+                        <source src="Person_A_EGI2b.mp4" type="video/mp4">
+                    </video>
+                    <br>
+                    <h3>Inference 2</h3>
+                    <h3>Eye gaze video of Person B (CORRECT answer)</h3>
+                    <video id="video2" controls onplay="logInteraction('Video Play - Question 2b Video A')" onpause="logInteraction('Video Pause - Question 2b Video A')" onended="logInteraction('Video Ended - Question 2b Video A')" ontimeupdate="logVideoTime('Question 2b Video A', this.currentTime)">
+                        <source src="Person_B_EGI2b.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+            <textarea id="answer-input-4" placeholder="Type your answer (500-word limit)" rows="20"></textarea>
+            <button class="button" onclick="submitAnswer(4)">Submit</button>
+        </div>
+    </div>
+
+    <script>
+        var questions = document.querySelectorAll(".question");
+        var currentQuestionIndex = 1;
+        var interactionLogs = [];
+        var answers = {};
+
+        var nameInput = document.getElementById("name-input");
+        var departmentInput = document.getElementById("department-input");
+        var userDetails = {};
+
+        function logInteraction(action) {
+            var timestamp = new Date().toLocaleString();
+            var logEntry = timestamp + "," + action;
+            interactionLogs.push(logEntry);
+        }
+
+        function logVideoTime(videoName, currentTime) {
+            var timestamp = new Date().toLocaleString();
+            var logEntry = timestamp + ",Video Time - " + videoName + " - Current Time: " + currentTime;
+            interactionLogs.push(logEntry);
+        }
+
+        function startSession() {
+            var name = nameInput.value;
+            var department = departmentInput.value;
+
+            if (name && department) {
+                userDetails.name = name;
+                userDetails.department = department;
+
+                document.getElementById("user-details").style.display = "none";
+                document.getElementById("questions").style.display = "block";
+                logInteraction("Session Started - Name: " + name + ", Department: " + department);
+            } else {
+                alert("Please enter your name and department.");
+            }
+        }
+
+        function submitAnswer(questionIndex) {
+            var answerInput = document.getElementById("answer-input-" + questionIndex);
+            var answer = answerInput.value.trim();
+
+            if (answer) {
+                answers["Question " + questionIndex] = answer;
+                logInteraction("Answer Submitted - Question " + questionIndex);
+                answerInput.value = "";
+
+                questions[currentQuestionIndex].style.display = "none";
+                currentQuestionIndex++;
+
+                if (currentQuestionIndex < questions.length) {
+                    questions[currentQuestionIndex].style.display = "block";
+                } else {
+                    // Finished all questions
+                    logInteraction("Completed Questions");
+                    downloadInteractionLogs();
+                    alert("Thank you for completing the questions!");
+                }
+            } else {
+                alert("Please provide an answer before submitting.");
+            }
+        }
+
+        function downloadInteractionLogs() {
+            var logs = interactionLogs.join("\n");
+            var answersJSON = JSON.stringify(answers, null, 2);
+            var combinedData = "Interaction Logs:\n\n" + logs + "\n\nAnswers:\n\n" + answersJSON;
+
+            var blob = new Blob([combinedData], { type: "text/plain" });
+            var url = URL.createObjectURL(blob);
+
+            var a = document.createElement("a");
+            a.href = url;
+            a.download = userDetails.name + "_InteractionLogs.txt";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
